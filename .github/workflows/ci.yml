@@ -1,0 +1,71 @@
+name: CI - Testes Automatizados
+
+# Desafio 3 (Integração e CI/CD): a ideia é rodar a suíte de testes
+# automaticamente a cada commit/PR e deixar o resultado (relatório HTML)
+# salvo como artefato da execução, sem precisar ninguém rodar nada na mão.
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+  workflow_dispatch: {}
+
+jobs:
+  testes-api:
+    name: Testes de API (Desafio 1 - BrasilAPI)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: desafio-1-teste-api
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: desafio-1-teste-api/requirements.txt
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Rodar os testes e gerar o relatório
+        run: |
+          pytest -v \
+            --html=relatorios/relatorio.html \
+            --self-contained-html
+
+      # sobe o relatório mesmo quando algum teste falha, pra dar pra
+      # investigar o motivo direto pelo HTML gerado
+      - name: Guardar relatório como artefato
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-testes-api
+          path: desafio-1-teste-api/relatorios/relatorio.html
+          retention-days: 30
+
+  # -------------------------------------------------------------------------
+  # Testes E2E (Desafio 2) e testes mobile (Desafio 5) ainda não existem
+  # neste repositório. Os jobs abaixo ficam desativados (por isso o "if:
+  # false") só para deixar registrado onde eles vão entrar quando os
+  # desafios correspondentes forem implementados - a pipeline já está
+  # preparada para os três tipos de teste pedidos no Desafio 3, cada um
+  # rodando em paralelo e de forma independente.
+  # -------------------------------------------------------------------------
+  testes-e2e:
+    name: Testes E2E (Desafio 2 - ainda não implementado)
+    runs-on: ubuntu-latest
+    if: false
+    steps:
+      - run: echo "Job reservado para os testes E2E do Desafio 2."
+
+  testes-mobile:
+    name: Testes Mobile (Desafio 5 - ainda não implementado)
+    runs-on: ubuntu-latest
+    if: false
+    steps:
+      - run: echo "Job reservado para os testes mobile do Desafio 5."
