@@ -58,6 +58,51 @@ inexistente, parâmetro ausente, etc. O `test_metodos_http.py` é o que cobre
 especificamente a Tarefa 2, testando os mesmos endpoints com os quatro
 verbos HTTP.
 
+## O que cada arquivo faz
+
+- **`conftest.py`** - configuração compartilhada da suíte. É aqui que fica o
+  fixture `api`, que cria (uma única vez por sessão) o contexto de
+  requisições HTTP do Playwright já apontando para `https://brasilapi.com.br`.
+  Todo teste que recebe `api` como parâmetro reaproveita esse mesmo contexto.
+- **`pytest.ini`** - configuração do pytest: onde ficam os testes
+  (`tests/`), o padrão de nome de arquivo/classe/função que ele deve
+  reconhecer como teste, e a declaração dos markers `positivo`/`negativo`
+  (usados só como referência de organização dos cenários).
+- **`requirements.txt`** - lista travada (com versão exata) de tudo que
+  precisa estar instalado pra rodar o projeto: `playwright`, `pytest`,
+  `pytest-playwright` (integração entre os dois) e `pytest-html` (gerador
+  do relatório).
+- **`.gitignore`** - evita que ambiente virtual (`venv/`), cache do pytest
+  (`.pytest_cache/`) e bytecode do Python (`__pycache__/`, `*.pyc`) sejam
+  versionados. Nenhum desses é código do projeto, então não faz sentido
+  subir pro repositório.
+- **`README.md`** - este arquivo.
+- **`tests/test_cep.py`** - Tarefa 1: valida o endpoint de CEP. Cenário
+  positivo com um CEP existente (status, headers e campos do endereço) e
+  negativos com CEP fora do padrão de 8 dígitos, CEP inexistente e
+  requisição sem informar o CEP.
+- **`tests/test_bancos.py`** - Tarefa 1: valida a listagem de bancos e a
+  busca por código. Positivo cobre a lista completa e a busca pelo Banco do
+  Brasil (código 1); negativo cobre código inexistente e código não numérico.
+- **`tests/test_ddd.py`** - Tarefa 1: valida a consulta de DDD. Positivo com
+  o DDD 11 (retorna SP e a lista de cidades); negativo com DDDs em formatos
+  inválidos (curto demais, longo demais, não numérico).
+- **`tests/test_feriados.py`** - Tarefa 1: valida os feriados nacionais de
+  um ano. Positivo confere a quantidade e os dados do feriado de Ano Novo em
+  2025; negativo cobre ano fora do intervalo suportado pela API e ano não
+  numérico (que gera erro 500 - comportamento documentado no próprio teste).
+- **`tests/test_cambio.py`** - Tarefa 1: valida a cotação de moedas.
+  Positivo confere a lista de moedas disponíveis e a cotação do dólar numa
+  data válida; negativo cobre moeda inexistente e data em formato errado.
+- **`tests/test_metodos_http.py`** - Tarefa 2: bate nos mesmos endpoints
+  usados nos outros arquivos, mas focando nos métodos HTTP. Confirma que o
+  `GET` funciona em todos eles e que `POST`, `PUT` e `DELETE` são rejeitados
+  (já que a BrasilAPI só expõe consulta). Também cobre payload malformado
+  (JSON quebrado no corpo de um `POST`) e requisição sem o parâmetro
+  obrigatório na URL.
+- **`relatorios/relatorio.html`** - relatório HTML gerado pelo `pytest-html`
+  na última execução da suíte, guardado como evidência dos testes.
+
 ## Versões utilizadas
 
 - Python 3.12.3
