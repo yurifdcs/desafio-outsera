@@ -12,7 +12,10 @@ workflows, independente de qual desafio ele testa).
 
 ## O que o pipeline faz
 
-O job `testes-api` roda a cada push/PR em qualquer branch:
+Dois jobs rodam em paralelo a cada push/PR em qualquer branch, de forma
+independente (se um falhar, não impede o outro de terminar):
+
+### `testes-api` (Desafio 1)
 
 1. Faz o checkout do repositório;
 2. Configura o Python 3.12 (com cache de pip pra não reinstalar tudo do
@@ -21,23 +24,35 @@ O job `testes-api` roda a cada push/PR em qualquer branch:
 4. Executa `pytest` contra a BrasilAPI (os 42 testes descritos no
    [Desafio 1](../desafio-1-teste-api/README.md));
 5. Gera o relatório HTML (`pytest-html`) e sobe ele como **artefato** da
-   execução (`relatorio-testes-api`), mesmo se algum teste falhar - assim
-   dá pra abrir o HTML e investigar o motivo sem precisar rodar nada
-   localmente.
+   execução (`relatorio-testes-api`), mesmo se algum teste falhar.
 
-## Por que só o job de API está rodando de fato
+### `testes-e2e` (Desafio 2)
+
+1. Faz o checkout do repositório;
+2. Configura o Python 3.12;
+3. Instala as dependências do `desafio-2-teste-e2e/requirements.txt`;
+4. Executa `pytest` contra o site de prática automationpratice.com.br
+   (os testes de navegação, login e checkout descritos no
+   [Desafio 2](../desafio-2-teste-e2e/README.md)), usando o Google Chrome
+   que já vem instalado nos runners do GitHub Actions;
+5. Gera o relatório HTML e sobe ele como artefato (`relatorio-testes-e2e`).
+
+Em ambos os casos, o relatório sobe como artefato mesmo se algum teste
+falhar - assim dá pra abrir o HTML e investigar o motivo sem precisar
+rodar nada localmente.
+
+## Por que o job mobile ainda não roda de fato
 
 O desafio pede uma pipeline que rode testes de API, E2E e mobile. Neste
-repositório, até agora, só o **Desafio 1 (testes de API)** foi
-implementado - os desafios 2 (E2E) e 5 (mobile) ainda não existem aqui.
+repositório, os desafios 1 (API) e 2 (E2E) já estão implementados, mas o
+**Desafio 5 (mobile)** ainda não.
 
-Em vez de fingir que esses testes existem, o workflow já deixa os jobs
-`testes-e2e` e `testes-mobile` descritos no arquivo, desligados com
-`if: false` e com um comentário explicando que entram quando os desafios
-correspondentes forem implementados. Isso cobre a parte do enunciado que
-permite "descrever ou configurar" o pipeline - a estrutura para os três
-tipos de teste já está montada, rodando em paralelo e de forma
-independente (falha de um job não impede o outro de rodar).
+Em vez de fingir que esse teste existe, o workflow já deixa o job
+`testes-mobile` descrito no arquivo, desligado com `if: false` e com um
+comentário explicando que ele entra quando o desafio correspondente for
+implementado. Isso cobre a parte do enunciado que permite "descrever ou
+configurar" o pipeline - a estrutura pros três tipos de teste já está
+montada.
 
 ## Como ver o resultado das execuções
 
@@ -48,8 +63,8 @@ na aba **Actions** do repositório:
 2. Clique na execução mais recente do workflow `CI - Testes Automatizados`;
 3. O status de cada step aparece ali (verde = passou, vermelho = falhou);
 4. Em **Artifacts**, no final da página da execução, tem o
-   `relatorio-testes-api` pra baixar e abrir o HTML com o resultado
-   detalhado de cada teste.
+   `relatorio-testes-api` e o `relatorio-testes-e2e` pra baixar e abrir o
+   HTML com o resultado detalhado de cada teste.
 
 ## Resultado da última execução
 
