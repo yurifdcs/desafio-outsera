@@ -4,6 +4,10 @@ Repositório com a resolução prática da avaliação de automação de testes.
 Cada desafio da avaliação vive na sua própria pasta, com README, código e
 evidências próprias.
 
+Repositório publicado em: https://github.com/yurifdcs/desafio-outsera
+
+[![CI - Testes Automatizados](https://github.com/yurifdcs/desafio-outsera/actions/workflows/ci.yml/badge.svg)](https://github.com/yurifdcs/desafio-outsera/actions/workflows/ci.yml)
+
 ## Estrutura do repositório
 
 ```

@@ -56,6 +56,25 @@ na aba **Actions** do repositório:
 > Esta seção é atualizada manualmente depois de cada publicação, com o
 > link e o resultado real da execução no GitHub Actions.
 
-| Execução | Branch | Resultado | Link |
-|---|---|---|---|
-| _(preenchido após a primeira publicação no GitHub)_ | `master` | - | - |
+| Execução | Branch | Resultado | Duração | Link |
+|---|---|---|---|---|
+| #33803180026 (primeira publicação) | `master` | ✅ 42 testes passaram | 12,12s | [ver execução](https://github.com/yurifdcs/desafio-outsera/actions/runs/33803180026) |
+
+Saída do step "Rodar os testes e gerar o relatório" nessa execução:
+
+```
+============================= test session starts ==============================
+tests/test_bancos.py::TestBancosPositivo::test_lista_completa_de_bancos PASSED
+tests/test_bancos.py::TestBancosPositivo::test_banco_do_brasil_pelo_codigo_1 PASSED
+tests/test_cambio.py::TestCambioPositivo::test_lista_de_moedas_disponiveis_inclui_dolar_e_euro PASSED
+tests/test_cep.py::TestCepPositivo::test_busca_por_cep_valido_retorna_200_e_json PASSED
+tests/test_ddd.py::TestDddPositivo::test_ddd_11_retorna_estado_sp_e_lista_de_cidades PASSED
+tests/test_feriados.py::TestFeriadosPositivo::test_feriados_de_2025_vem_completos PASSED
+tests/test_metodos_http.py::TestMetodosNaoSuportados::test_post_nao_e_suportado[...] PASSED
+... (42 testes no total, cobrindo os 5 endpoints e os cenários positivos/negativos)
+============================= 42 passed in 12.12s ==============================
+```
+
+O relatório completo (HTML, com todos os 42 testes e headers/corpo de cada
+resposta) ficou disponível como artefato `relatorio-testes-api` dessa
+execução, baixável direto na página do run no GitHub Actions.
