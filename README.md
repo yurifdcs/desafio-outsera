@@ -32,8 +32,10 @@ DESAFIO_OUTSERA/
 
 Suíte de testes em **Python + Playwright** contra a
 [BrasilAPI](https://brasilapi.com.br/), cobrindo cenários positivos e
-negativos, múltiplos endpoints e métodos HTTP (GET/POST/PUT/DELETE), com
-relatório HTML gerado via `pytest-html`.
+negativos, múltiplos endpoints, contrato (JSON Schema) e métodos HTTP.
+Como a BrasilAPI é só leitura, o ciclo real de criação, atualização e
+remoção roda numa segunda API, configurada por variável de ambiente.
+Relatório HTML via `pytest-html`.
 
 Detalhes completos, versões, dependências e como rodar:
 [`desafio-1-teste-api/README.md`](desafio-1-teste-api/README.md)
@@ -43,16 +45,20 @@ Detalhes completos, versões, dependências e como rodar:
 Suíte de testes E2E em **Python + Playwright** contra o site de prática
 [automationpratice.com.br](https://automationpratice.com.br/), cobrindo
 navegação simples, login e checkout - caminho feliz e os principais
-cenários negativos de cada fluxo.
+cenários negativos de cada fluxo. As jornadas de home, login e checkout
+também passam pelo axe-core: violação de acessibilidade critical ou
+serious reprova a suíte. Screenshot e trace ficam guardados quando um
+cenário falha.
 
 Detalhes completos e como rodar:
 [`desafio-2-teste-e2e/README.md`](desafio-2-teste-e2e/README.md)
 
 ## Desafio 3 - Integração e CI/CD
 
-Pipeline em **GitHub Actions** que roda os testes dos Desafios 1 e 2 a
-cada `push`/`pull request` e publica o relatório de cada um como artefato
-da execução.
+Pipeline em **GitHub Actions** que roda lint (ruff), os testes dos
+Desafios 1 e 2 e a auditoria de acessibilidade a cada `push`/`pull
+request`. Publica relatório, JUnit, screenshot/trace de falha e um resumo
+com total, aprovados, reprovados, duração e status de cada módulo.
 
 Detalhes completos e como acompanhar as execuções:
 [`desafio-3-cicd/README.md`](desafio-3-cicd/README.md)

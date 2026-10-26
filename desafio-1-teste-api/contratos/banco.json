@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["ispb", "name", "code", "fullName"],
+  "properties": {
+    "ispb": { "type": "string", "pattern": "^[0-9]{8}$" },
+    "name": { "type": "string", "minLength": 1 },
+    "code": { "type": "integer" },
+    "fullName": { "type": "string", "minLength": 1 }
+  }
+}

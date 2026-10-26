@@ -4,3 +4,7 @@ __pycache__/
 *.pyc
 .pytest_cache/
 test-results/
+.env
+relatorios/*.xml
+relatorios/reexecucoes.json
+relatorios/evidencias/

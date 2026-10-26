@@ -37,14 +37,7 @@ class CheckoutPage:
         self.mensagem_dados_salvos = page.get_by_text(
             "Billings Information registred with success!"
         )
-        self.mensagem_erro_pagamento = page.get_by_text(
-            "Preencha os dados de pagamento!"
-        )
-
-    def abrir(self):
-        self.page.goto("/checkout-one", wait_until="domcontentloaded")
-        expect(self.primeiro_nome).to_be_visible()
-        return self
+        self.mensagem_erro_pagamento = page.get_by_text("Preencha os dados de pagamento!")
 
     def preencher_dados_de_cobranca(
         self,

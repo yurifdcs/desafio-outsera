@@ -7,6 +7,10 @@ isso ser um problema pros testes, a gente usa exatamente esse comportamento
 como cenário negativo - o esperado é que a API rejeite esses métodos, e é
 isso que validamos aqui, junto com payload malformado e requisição sem os
 dados obrigatórios.
+
+O fluxo em que o recurso é criado, atualizado e apagado de verdade está em
+test_crud.py, numa API separada (CRUD_API_BASE_URL). Este arquivo continua
+mostrando que a BrasilAPI rejeita escrita.
 """
 
 import pytest

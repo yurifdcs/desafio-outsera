@@ -6,9 +6,7 @@ from playwright.sync_api import Page, expect
 class CartPage:
     def __init__(self, page: Page):
         self.page = page
-        self.link_finalizar_compra = page.get_by_role(
-            "link", name="Proceed to Checkout"
-        )
+        self.link_finalizar_compra = page.get_by_role("link", name="Proceed to Checkout")
         self.botao_limpar_carrinho = page.get_by_role("button", name="Clear cart")
 
     def abrir(self):
@@ -25,6 +23,4 @@ class CartPage:
         # cabeçalho, então preciso restringir a busca à tabela de itens do
         # carrinho pra não pegar duas ocorrências (strict mode do Playwright
         # não deixa passar um locator ambíguo)
-        return self.page.locator("table").get_by_role(
-            "link", name=nome_produto, exact=True
-        )
+        return self.page.locator("table").get_by_role("link", name=nome_produto, exact=True)

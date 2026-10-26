@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["cep", "state", "city", "street", "service"],
+  "properties": {
+    "cep": { "type": "string", "pattern": "^[0-9]{8}$" },
+    "state": { "type": "string", "minLength": 2, "maxLength": 2 },
+    "city": { "type": "string", "minLength": 1 },
+    "neighborhood": { "type": "string" },
+    "street": { "type": "string", "minLength": 1 },
+    "service": { "type": "string", "minLength": 1 }
+  }
+}

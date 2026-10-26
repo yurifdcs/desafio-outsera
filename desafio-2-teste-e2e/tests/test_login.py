@@ -22,9 +22,7 @@ from playwright.sync_api import expect
 
 
 @pytest.mark.positivo
-def test_login_com_credenciais_validas_redireciona_para_minha_conta(
-    page, login_page
-):
+def test_login_com_credenciais_validas_redireciona_para_minha_conta(page, login_page):
     login_page.abrir().logar("teste@teste.com", "teste123")
     login_page.confirmar_modal_de_sucesso()
 

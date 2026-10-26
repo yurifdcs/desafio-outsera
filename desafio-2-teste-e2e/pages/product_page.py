@@ -6,9 +6,7 @@ from playwright.sync_api import Page, expect
 class ProductPage:
     def __init__(self, page: Page):
         self.page = page
-        self.botao_adicionar_ao_carrinho = page.get_by_role(
-            "link", name="Add To Cart"
-        )
+        self.botao_adicionar_ao_carrinho = page.get_by_role("link", name="Add To Cart")
 
     def titulo_do_produto(self, nome_produto: str):
         # o site tem duas variações de template pra página de produto

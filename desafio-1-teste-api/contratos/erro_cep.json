@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["name", "message", "type"],
+  "properties": {
+    "name": { "const": "CepPromiseError" },
+    "message": { "type": "string", "minLength": 1 },
+    "type": { "type": "string", "minLength": 1 },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["message"],
+        "additionalProperties": true,
+        "properties": {
+          "message": { "type": "string" },
+          "service": { "type": "string" }
+        }
+      }
+    }
+  }
+}
